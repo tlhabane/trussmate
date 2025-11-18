@@ -1,0 +1,106 @@
+import { FormState } from '../../../types';
+import { CustomerAddress } from '../../../models';
+import { yesNoOptions } from '../../../static-data';
+
+export const addressFormConfig: FormState<CustomerAddress> = {
+    customerId: {
+        error: '',
+        value: '',
+        label: 'ID/Passport No.',
+        type: 'text',
+        placeholder: '8000015200080',
+    },
+    addressId: {
+        error: '',
+        value: '',
+        label: 'ID/Passport No.',
+        type: 'text',
+        placeholder: '8000015200080',
+    },
+    placeId: {
+        error: '',
+        value: '',
+        label: 'ID/Passport No.',
+        type: 'text',
+        placeholder: '8000015200080',
+    },
+    billingAddress: {
+        error: '',
+        value: 0,
+        label: 'Billing Address',
+        type: 'select',
+        options: yesNoOptions,
+    },
+    fullAddress: {
+        error: '',
+        value: '',
+        label: 'Address',
+        type: 'textarea',
+        placeholder: '123 Main Street, City, Country',
+        required: true,
+        style: { minHeight: 50 },
+    },
+    streetAddress: {
+        error: '',
+        value: '',
+        label: 'ID/Passport No.',
+        type: 'text',
+        placeholder: '8000015200080',
+    },
+    suburb: {
+        error: '',
+        value: '',
+        label: 'ID/Passport No.',
+        type: 'text',
+        placeholder: '8000015200080',
+    },
+    city: {
+        error: '',
+        value: '',
+        label: 'ID/Passport No.',
+        type: 'text',
+        placeholder: '8000015200080',
+    },
+    municipality: {
+        error: '',
+        value: '',
+        label: 'ID/Passport No.',
+        type: 'text',
+        placeholder: '8000015200080',
+    },
+    province: {
+        error: '',
+        value: '',
+        label: 'ID/Passport No.',
+        type: 'text',
+        placeholder: '8000015200080',
+    },
+    country: {
+        error: '',
+        value: '',
+        label: 'ID/Passport No.',
+        type: 'text',
+        placeholder: '8000015200080',
+    },
+    postalCode: {
+        error: '',
+        value: '',
+        label: 'ID/Passport No.',
+        type: 'text',
+        placeholder: '8000015200080',
+    },
+    latitude: {
+        error: '',
+        value: 0,
+        label: 'ID/Passport No.',
+        type: 'text',
+        placeholder: '8000015200080',
+    },
+    longitude: {
+        error: '',
+        value: 0,
+        label: 'ID/Passport No.',
+        type: 'text',
+        placeholder: '8000015200080',
+    },
+};

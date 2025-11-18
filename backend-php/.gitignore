@@ -1,0 +1,14 @@
+### Composer template
+composer.phar
+vendor
+
+# Secrets
+config/settings.php
+
+# Misc
+logs/*
+public/backup/*
+public/downloads/*
+public/attachments/*
+public/uploads/*
+

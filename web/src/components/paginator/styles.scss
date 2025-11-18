@@ -1,0 +1,93 @@
+.pagination {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: relative;
+
+    li {
+        padding: 0 1px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        &:first-child,
+        &:last-child {
+            padding: 0 5px;
+        }
+
+        a {
+            text-decoration: none;
+            font-size: 14px;
+            padding: 0 16px;
+            color: #000;
+            height: 38px;
+            min-width: 38px;
+            border-radius: 38px;
+            line-height: 38px;
+            opacity: 1;
+            -webkit-transition: background-color 0.3s;
+            transition: background-color 0.3s;
+
+            i {
+                width: 16px !important;
+                height: 16px !important;
+                padding: 12px;
+                background-color: #000;
+                margin: 8px 10px;
+            }
+
+            &.active,
+            &.disabled {
+                pointer-events: none;
+            }
+
+            &.active {
+                background-color: #4caf50;
+                color: #fff;
+            }
+
+            &.disabled {
+                color: #999;
+                opacity: 0.85;
+
+                i {
+                    background-color: #999;
+                }
+            }
+
+            &:hover:not(.active),
+            &:hover:not(.disabled) {
+                background-color: #ddd;
+            }
+        }
+    }
+    &.compact-pagination {
+        width: 80px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 15px;
+        li {
+            display: flex;
+            flex: 1;
+            align-items: center;
+            justify-content: center;
+            &:first-child,
+            &:last-child {
+                padding: 0;
+            }
+            a {
+                display: flex;
+                flex: 1;
+                align-items: center;
+                justify-content: center;
+                max-width: 38px;
+
+                i {
+                    margin: 0;
+                }
+            }
+        }
+    }
+}

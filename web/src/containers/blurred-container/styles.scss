@@ -1,0 +1,16 @@
+.blurred-container {
+    backdrop-filter: blur(10px);
+    background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.4));
+    border-radius: 1.5rem;
+    padding: 2rem 2rem 3rem 2rem;
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+
+    @media (min-width: 768px) {
+        padding: 24px 16px;
+        form {
+            width: 100%;
+        }
+    }
+}

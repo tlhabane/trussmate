@@ -1,0 +1,47 @@
+{
+    "require": {
+        "php": "^8.1",
+        "ext-curl": "*",
+        "ext-fileinfo": "*",
+        "ext-imap": "*",
+        "ext-openssl": "*",
+        "ext-pdo": "*",
+        "ext-zip": "*",
+        "monolog/monolog": "^3.9",
+        "mpdf/mpdf": "^8.2.5",
+        "php-di/php-di": "^6.4.0",
+        "phpmailer/phpmailer": "^6.10.0",
+        "twig/twig": "^3.21"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/",
+            "Test\\": "tests/"
+        }
+    },
+    "config": {
+        "process-timeout": 300,
+        "sort-packages": true
+    },
+    "scripts": {
+        "cs:check": "php-cs-fixer fix --dry-run --format=txt --verbose --diff --config=.cs.php --ansi",
+        "cs:fix": "php-cs-fixer fix --config=.cs.php --ansi",
+        "sniffer:check": "phpcs --standard=phpcs.xml",
+        "sniffer:fix": "phpcbf --standard=phpcs.xml",
+        "stan": "phpstan analyse -c phpstan.neon --no-progress --ansi",
+        "test": "phpunit --configuration phpunit.xml --do-not-cache-result --colors=always",
+        "test:all": [
+            "@cs:check",
+            "@sniffer:check",
+            "@stan",
+            "@test"
+        ],
+        "test:coverage": "php -d xdebug.mode=coverage -r \"require 'vendor/bin/phpunit';\" -- --configuration phpunit.xml --do-not-cache-result --colors=always --coverage-clover build/logs/clover.xml --coverage-html build/coverage"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "v3.13.0",
+        "phpstan/phpstan": "1.9.2",
+        "phpunit/phpunit": "9.5.26",
+        "squizlabs/php_codesniffer": "3.7.1"
+    }
+}

@@ -1,0 +1,122 @@
+{{ source('common/header.html') }}
+{# START: Mail Content #}
+<table class="outer" align="center" style="text-align: left">
+    <span style="display: none; visibility: hidden; color: #fefefe;">
+        Thank you for choosing {% if service_provider_name is defined and service_provider_name is not empty %}
+        {{ service_provider_name }}{% else %}us{% endif %}. Attached you will find your invoice.
+    </span>
+    {# Branding #}
+    {% if service_provider_logo is defined and service_provider_logo is not empty %}
+        <table width="100%" style="width: 100%">
+            <tr>
+                <td style="margin-bottom:25px; padding: 0 10px; text-align: left;">
+                    {% if service_provider_website is defined and service_provider_website is not empty %}
+                        <a href="{{ service_provider_website }}">
+                            <img src="{{ service_provider_logo }}" width="100"
+                                 {% if service_provider_name is defined %}alt="{{ service_provider_name }}"{% endif %} />
+                        </a>
+                    {% else %}
+                        <img src="{{ service_provider_logo }}" width="100"
+                             {% if service_provider_name is defined %}alt="{{ service_provider_name }}"{% endif %} />
+                    {% endif %}
+                </td>
+                <td style="margin-bottom:25px; padding: 0 10px; width: 450px; text-align: right; vertical-align: middle;">
+                    <p style="font-size:14px; font-weight: bold; line-height:18px;">
+                        {% if email_title is defined and email_title is not empty %}
+                            {{ email_title }}
+                        {% else %}
+                            Invoice
+                        {% endif %}
+                    </p>
+                </td>
+            </tr>
+        </table>
+    {% endif %}
+
+    {# Main #}
+    {% if custom_greeting is defined and custom_greeting is not empty %}
+        <tr>
+            <td class="one-column">
+                <table width="100%">
+                    <tr>
+                        <td class="inner contents" style="margin-top: 15px;">
+                            {{ custom_greeting | raw }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="inner contents">
+                            <p>Queries? Kindly contact {{ service_provider_name }} on
+                                {{ service_provider_tel }} or via email {{ service_provider_email }}.</p>
+                            <p>Your Invoice reference number is <strong>{{ invoice_number }}</strong>, please quote this
+                                number when making queries.</p>
+                            <hr />
+                            <p><strong>How to open the attached document?</strong></p>
+                            <p>In order to open the attached document you will need Adobe Acrobat Reader installed on
+                                your computer.</p>
+                            <p>If you don't have Adobe Acrobat Reader installed on your computer, you may download it
+                                from the Adobe website. </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td class="one-column">
+                <table width="100%" style="width: 100%">
+                    <tr>
+                        <td class="inner contents">
+                            <p>Hi {{ recipient_name }},<br /></p>
+                            <p>Thank you for choosing {{ service_provider_name }}.</p>
+                            <p>Attached you will find your Invoice.</p>
+                            <p>Queries? Kindly contact {{ service_provider_name }} on
+                                {{ service_provider_tel }} or via email {{ service_provider_email }}.</p>
+                            <p>Your Invoice reference number is <strong>{{ invoice_number }}</strong>, please quote this
+                                number when making queries.</p>
+                            <hr />
+                            <p><strong>How to open the attached document?</strong></p>
+                            <p>In order to open the attached document you will need Adobe Acrobat Reader installed on
+                                your computer.</p>
+                            <p>If you don't have Adobe Acrobat Reader installed on your computer, you may download it
+                                from the Adobe website. </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    {% endif %}
+    {# Footer #}
+    <tr style="background-color: #e6e7e8; padding: 30px 15px; text-align: center; color: #414042;">
+        <td class="one-column" style="background: #e6e7e8; padding: 15px;">
+            <table width="100%" style="font-size: 12px; color: #414042; padding-bottom: 30px; text-align: center;">
+                <tr>
+                    <td class="inner contents">
+                        {% if service_provider_name is defined and service_provider_name is not empty %}
+                            <p style="font-size: 11px;">If you're not sure why you're receiving this message, kindly
+                                contact {{ service_provider_name }} on
+                                {{ service_provider_tel }} or via email {{ service_provider_email }}.</p>
+                        {% else %}
+                            <p style="font-size: 11px;">If you're not sure why you're receiving this message, please
+                                contact our support team by emailing {{ app_support_email }}.</p>
+                        {% endif %}
+
+                        <p style="font-size: 10px;border-top: 2px solid #ffffff; margin-top: 10px; padding-top: 10px;">
+                            {{ app_name }} respects your privacy.
+                            To learn more, read our <a style="color: #2784a1; text-decoration: underline;"
+                                                       href="{{ app_url }}privacy-policy/">Privacy Statement</a>.<br />
+                            If you receive a suspicious email, please <a
+                                    style="color: #2784a1; text-decoration: underline;" href="{{ app_url }}report/">Report
+                                it</a>.
+                            Visit our <a style="color: #2784a1; text-decoration: underline;"
+                                         href="{{ app_url }}}security-center/">Security center</a> to find out more.
+                        </p>
+                        <p style="font-size: 10px;">&copy; {{ "now"|date("Y") }} {{ app_name }}. All rights
+                            reserved.</p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+{# END: Mail Content #}
+{{ source('common/footer.html') }}

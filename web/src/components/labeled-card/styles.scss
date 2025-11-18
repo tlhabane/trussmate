@@ -1,0 +1,73 @@
+.labeled-card {
+    background-color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    position: relative;
+    border: 1px solid rgba(6, 18, 35, 0.14);
+    border-top-color: rgba(0, 0, 0, 0.14);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0 5px 0;
+    overflow: visible;
+    width: 100%;
+    -webkit-transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease;
+    cursor: auto;
+
+    .bottom-card-label,
+    .card-label {
+        position: absolute;
+        left: 15px;
+        padding: 0 5px;
+        background-color: #ffffff;
+        font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+        'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+        font-size: 16px;
+    }
+
+    .card-label {
+        top: -12px;
+    }
+
+    .bottom-card-label {
+        bottom: -12px;
+    }
+
+    &.centered-label {
+        .bottom-card-label,
+        .card-label {
+            text-align: center;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+
+    &.static-fields {
+        border-radius: 2px;
+        padding: 15px 20px;
+
+        .bottom-card-label,
+        .card-label {
+            font-size: 13px;
+        }
+
+        .card-label {
+            top: -10px;
+        }
+
+        .bottom-card-label {
+            bottom: -10px;
+        }
+    }
+
+    &.subtle {
+        padding: 0;
+        margin: 0;
+        border: 0;
+
+        .card-label {
+            display: none;
+            visibility: hidden;
+        }
+    }
+}

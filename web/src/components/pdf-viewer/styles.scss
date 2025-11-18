@@ -1,0 +1,134 @@
+.pdfContainer.show {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(39, 43, 53, 0.35);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    -webkit-transition: -webkit-transform 400ms cubic-bezier(0.05, 0.74, 0.27, 0.99);
+    -moz-transition: -moz-transform 400ms cubic-bezier(0.05, 0.74, 0.27, 0.99);
+    -o-transition: -o-transform 400ms cubic-bezier(0.05, 0.74, 0.27, 0.99);
+    transition: transform 400ms cubic-bezier(0.05, 0.74, 0.27, 0.99);
+}
+
+.pdfContainer .pdfViewer {
+    position: relative;
+    width: 66.6667%;
+    top: 10px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    bottom: 0;
+    background-color: #ffffff;
+    z-index: 798;
+    overflow: hidden;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+    -ms-transform: translate(0, 100%);
+    border-radius: 3px;
+}
+
+.pdfContainer .pdfViewer .pdfToolbar {
+    position: absolute;
+    height: 50px;
+    width: 100%;
+    bottom: 170px;
+    z-index: 800;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pdfContainer .pdfViewer .pdfToolbar .pdfToolbarInner {
+    height: 100%;
+    width: 66.6667%;
+    background-color: rgba(0, 0, 0, 0.75);
+    border-radius: 50px;
+}
+
+.pdfContainer .pdfViewer .header {
+    position: relative;
+    z-index: 800;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 70px;
+    background-color: rgba(243, 243, 244, 0.85);
+    /*border-bottom: 1px solid rgba(220, 222, 224, 0.7);*/
+}
+
+.pdfContainer .pdfViewer .content {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative !important;
+    overflow-y: auto !important;
+}
+
+.pdfContainer .pdfViewer .header-inner {
+    padding: 0 20px !important;
+    width: 100%;
+    height: 70px !important;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pdfContainer .pdfViewer .header .header-inner div {
+    display: flex !important;
+    flex: 1 !important;
+    align-items: flex-start !important;
+}
+
+.pdfContainer .pdfViewer.header .header-inner div:first-child {
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.pdfContainer .pdfViewer .header .header-inner div:last-child {
+    align-items: center !important;
+    justify-content: flex-end !important;
+}
+
+@media (max-width: 768px) {
+    .pdfContainer .pdfViewer .header .header-inner div:first-child h4 {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 992px) {
+    .pdfContainer {
+        z-index: 800;
+    }
+    .pdfContainer .pdfViewer {
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+    }
+    .pdfContainer .pdfViewer .content {
+        padding: 0 !important;
+    }
+}
+
+@media (min-width: 0) {
+    .pdfContainer .pdfViewer .header .header-inner div:first-child {
+        visibility: visible !important;
+        display: flex !important;
+    }
+}
+
+.pdfContainer.show .pdfViewer {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -ms-transform: translate(0, 0);
+}

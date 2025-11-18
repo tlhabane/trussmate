@@ -1,0 +1,24 @@
+footer {
+    &.sticky-footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        min-height: 60px;
+        background-color: #f3f3f4;
+        border-top: 1px solid rgba(230, 230, 230, 1);
+        z-index: 1055 !important;
+
+        .footer-inner {
+            height: 100%;
+            width: 100%;
+            padding: 0 20px 10px 20px;
+
+            p {
+                margin: 0;
+                font-size: 14px;
+                color: rgba(0, 0, 0, 0.65);
+            }
+        }
+    }
+}
