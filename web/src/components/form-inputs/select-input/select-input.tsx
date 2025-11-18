@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { JSX } from 'react';
 import Select, { Props } from 'react-select';
 import { SelectOptionType } from './types';
 import { Styles } from './config';
@@ -10,15 +10,21 @@ interface SelectProps<Option> extends Props<Option> {
     required?: boolean;
 }
 
-export const SelectInput: React.FC<SelectProps<SelectOptionType>> = ({ error, label, defaultValue, required, ...props }, ...rest) => {
+export const SelectInput: React.FC<SelectProps<SelectOptionType>> = ({
+                                                                         error,
+                                                                         label,
+                                                                         defaultValue,
+                                                                         required,
+                                                                         ...props
+                                                                     }, ...rest): JSX.Element => {
     const customSelectStyles = Styles<SelectOptionType>();
     const hasError = Boolean(error);
     return (
         <>
-            <div className={`form-group form-group-react-select${(hasError && ' has-error') || ''}${required ? ' required' : ''}`}>
-                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <div
+                className={`form-group form-group-react-select${(hasError && ' has-error') || ''}${required ? ' required' : ''}`}>
                 <label>{label}</label>
-                <div className="controls">
+                <div className='controls'>
                     <Select
                         /* eslint-disable-next-line react/jsx-props-no-spreading */
                         {...rest}
@@ -29,13 +35,13 @@ export const SelectInput: React.FC<SelectProps<SelectOptionType>> = ({ error, la
                         onFocus={handleSelectFocus}
                         onBlur={handleSelectBlur}
                         menuPortalTarget={document.body}
-                        menuPosition="fixed"
+                        menuPosition='fixed'
                         className={`react-select-container${(hasError && ' has-error') || ''}`}
                     />
-                    {hasError && <label className="error">{error}</label>}
+                    {hasError && <label className='error'>{error}</label>}
                 </div>
             </div>
-            
+        
         </>
     );
 };

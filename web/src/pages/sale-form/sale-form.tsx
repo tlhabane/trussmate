@@ -54,6 +54,7 @@ export default function SaleForm(): JSX.Element {
     }), []);
     const { data: customerOptionData, isLoading: customerOptionsLoading } = useFetchData(customerFetchConfig);
     const [customers, setCustomers] = useState<CustomerList[]>([]);
+    const [workflows, setWorkflows] = useState<WorkflowList[]>([]);
     
     /* Load and set customer & workflow options */
     useEffect(() => {
@@ -63,6 +64,7 @@ export default function SaleForm(): JSX.Element {
                 label: workflowName,
                 value: workflowId,
             }));
+            setWorkflows(workflowList);
             
             const customerList = (customerOptionData?.records || []) as CustomerList[];
             const updatedCustomerOptions = customerList.map(({ customerId, customerName }) => ({
@@ -83,9 +85,41 @@ export default function SaleForm(): JSX.Element {
                     value: updatedCustomerOptions[0]?.value || '',
                     options: updatedCustomerOptions,
                 },
+                delivery: {
+                    ...prevState.delivery,
+                    value: workflowList[0]?.delivery || 0,
+                },
+                labour: {
+                    ...prevState.labour,
+                    value: workflowList[0]?.labour || 0,
+                },
             }));
         }
     }, [customerOptionData, workflowOptionData, setFormData]);
+    
+    useEffect(() => {
+        if (formData.workflowId.value.trim() !== '' && workflows.length > 0) {
+            const selectedWorkflow = workflows.find((workflow) => workflow.workflowId === formData.workflowId.value);
+            if (selectedWorkflow) {
+                const { workflowId, delivery, labour } = selectedWorkflow;
+                setFormData((prevState) => ({
+                    ...prevState,
+                    workflowId: {
+                        ...prevState.workflowId,
+                        value: workflowId,
+                    },
+                    delivery: {
+                        ...prevState.delivery,
+                        value: delivery || 0,
+                    },
+                    labour: {
+                        ...prevState.labour,
+                        value: labour || 0,
+                    },
+                }));
+            }
+        }
+    }, [formData.workflowId.value, workflows]);
     
     const [showContactPersonSelector, setShowContactPersonSelector] = useState(false);
     useEffect(() => {
@@ -156,13 +190,26 @@ export default function SaleForm(): JSX.Element {
     
     /* Installation or delivery: Set delivery address as required */
     useEffect(() => {
-        setFormData((prevState) => ({
-            ...prevState,
-            deliveryAddressId: {
-                ...prevState.deliveryAddressId,
-                required: formData.labour.value === 1 || formData.delivery.value === 1,
-            },
-        }));
+        setFormData((prevState) => {
+            let label = 'Delivery or installation address';
+            if (formData.labour.value === 1 || formData.delivery.value === 1) {
+                if (formData.labour.value === 1 && formData.delivery.value === 1) {
+                    label = 'Installation address';
+                } else if (formData.labour.value === 0 && formData.delivery.value === 1) {
+                    label = 'Delivery address';
+                } else {
+                    label = 'Delivery and installation address';
+                }
+            }
+            return {
+                ...prevState,
+                deliveryAddressId: {
+                    ...prevState.deliveryAddressId,
+                    required: formData.labour.value === 1 || formData.delivery.value === 1,
+                    label,
+                },
+            };
+        });
     }, [formData.labour.value, formData.delivery.value, setFormData]);
     
     const uploadInput = useRef<HTMLInputElement | null>(null);
@@ -225,11 +272,15 @@ export default function SaleForm(): JSX.Element {
         return <ContainerSpinner />;
     }
     
+    const { value: workflowId } = formData.workflowId;
+    const selectedWorkflow = workflows.find((workflow) => workflow.workflowId === workflowId);
+    const deliveryOptionAvailable = selectedWorkflow?.delivery || 0;
     return (
         <div className='tab-content flex-fill'>
             <Form onSubmit={onSubmit}>
                 <SaleFormInputElements
                     addCustomer={handleAddCustomer}
+                    deliveryAvailable={deliveryOptionAvailable}
                     getElement={getElement}
                     formConfig={formData}
                     onSelect={onReactSelectChange}

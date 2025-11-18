@@ -127,6 +127,7 @@ export default function SaleSettingsForm(): JSX.Element {
         handleSubmit,
         onBlur,
         onChange,
+        onReactSelectChange,
         setFormData,
     } = useWorkflowForm();
     
@@ -263,6 +264,7 @@ export default function SaleSettingsForm(): JSX.Element {
                             formConfig={formData}
                             onBlur={onBlur}
                             onChange={onChange}
+                            onSelect={onReactSelectChange}
                         />
                         <div className='form-group form-group-default bg-transparent pt-2 pb-2'>
                             <div className='d-flex flex-row align-items-center'>

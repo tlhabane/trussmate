@@ -1,5 +1,4 @@
 import React, { JSX, ReactElement } from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { defaultLayoutPlugin, ToolbarProps, ToolbarSlot } from '@react-pdf-viewer/default-layout';
 
 const renderToolbar = (Toolbar: (props: ToolbarProps) => ReactElement): JSX.Element => (

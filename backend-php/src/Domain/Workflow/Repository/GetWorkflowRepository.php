@@ -19,7 +19,7 @@ final class GetWorkflowRepository
     public function getWorkflow(WorkflowData $data, int $record_start = 0, int $record_limit = 0): PDOStatement
     {
         $query = "SELECT 
-                      workflow_id, workflow_name 
+                      workflow_id, workflow_name, delivery_required, labour_required 
                   FROM 
                       workflow w 
                   WHERE 
@@ -30,7 +30,7 @@ final class GetWorkflowRepository
             $query .= " AND LOWER(w.workflow_name) LIKE :search";
         }
         $query .= " ORDER BY w.workflow_name ASC";
-        $query.= SetQueryFilter::setQueryLimit($record_start, $record_limit);
+        $query .= SetQueryFilter::setQueryLimit($record_start, $record_limit);
 
         $query_stmt = $this->connection->prepare($query);
         $query_stmt->bindParam(':account_no', $data->account_no);

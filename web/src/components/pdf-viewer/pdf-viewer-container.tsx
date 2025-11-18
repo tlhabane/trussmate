@@ -1,14 +1,10 @@
 import React, { JSX } from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { Worker, Viewer } from '@react-pdf-viewer/core';
-// eslint-disable-next-line import/no-extraneous-dependencies
 // import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 import { PDFViewerToolbar } from './pdf-viewer-toolbar';
 import { ContainerSpinner } from '../spinner';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import '@react-pdf-viewer/core/lib/styles/index.css';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 
 type Props = {

@@ -61,7 +61,7 @@ export const saleFormConfig: FormState<Sale> = {
     delivery: {
         error: '',
         value: 0,
-        label: 'Delivery Required',
+        label: 'Include Delivery',
         type: 'select',
         options: yesNoOptions,
         placeholder: 'Deliver goods to customer',

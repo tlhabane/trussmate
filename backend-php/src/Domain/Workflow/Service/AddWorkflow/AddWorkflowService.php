@@ -2,6 +2,7 @@
 
 namespace App\Domain\Workflow\Service\AddWorkflow;
 
+use App\Domain\User\Service\ValidateSuperAdminPrivilegeService;
 use App\Domain\Workflow\Repository\AddWorkflowRepository;
 use App\Domain\Workflow\Repository\AddWorkflowTaskRepository;
 use App\Domain\Workflow\Service\GetWorkflowTaskIdService;
@@ -39,6 +40,8 @@ final class AddWorkflowService
      */
     public function addWorkflow(array $data): array
     {
+        ValidateSuperAdminPrivilegeService::validate($data['sessionUserRole']);
+        
         $sanitizedData = SanitizeWorkflowDataService::sanitizeData($data);
         $sanitizedData['accountNo'] = $data['accountNo'];
         $validatedData = $this->validateAddWorkflowDataService->validateData($sanitizedData);

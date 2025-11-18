@@ -19,7 +19,7 @@ import {
 } from '../../components';
 import { AddressModalForm, CustomerListItem, ContactModalForm, CustomerModalForm } from './components';
 import { ModalPrompt, useLayoutContext } from '../../containers';
-import { getHttpRequestConfig, useFetchData, useAxios } from '../../utils';
+import { useHttpRequestConfig, useFetchData, useAxios } from '../../utils';
 import {
     useExpandListItem,
     useScreenWidth,
@@ -145,18 +145,27 @@ export default function Customer(): JSX.Element {
     
     const axios = useAxios();
     const toast = usePromiseToast();
+    const getHttpRequestConfig = useHttpRequestConfig();
+    
     const handleProceedDeletingCustomer: ButtonClickFn<void> = async (event) => {
         event.preventDefault();
-        const { customer } = event.currentTarget.dataset;
-        const httpRequestConfig = {
-            ...getHttpRequestConfig('DELETE'),
-            url: '/customer',
-            data: { customerId: customer || '' },
-        };
-        
-        await toast(axios(httpRequestConfig, undefined, event.currentTarget));
-        handleDismissPromptModal();
-        updateRecords();
+        const button = event.currentTarget;
+        const { customer } = button.dataset;
+        try {
+            button.classList.add('loading');
+            const httpRequestConfig = {
+                ...await getHttpRequestConfig('DELETE'),
+                url: '/customer',
+                data: { customerId: customer || '' },
+            };
+            
+            await toast(axios(httpRequestConfig));
+            button.classList.remove('loading');
+            handleDismissPromptModal();
+            updateRecords();
+        } catch (e) {
+            button.classList.remove('loading');
+        }
     };
     
     const handleDeleteCustomer: HTMLElementClickFn<void> = (event) => {
@@ -302,7 +311,7 @@ export default function Customer(): JSX.Element {
         event.preventDefault();
         const { contact } = event.currentTarget.dataset;
         const httpRequestConfig = {
-            ...getHttpRequestConfig('DELETE'),
+            ...await getHttpRequestConfig('DELETE'),
             url: '/customer/contact',
             data: { contactId: contact || '' },
         };
@@ -406,7 +415,7 @@ export default function Customer(): JSX.Element {
         event.preventDefault();
         const { address } = event.currentTarget.dataset;
         const httpRequestConfig = {
-            ...getHttpRequestConfig('DELETE'),
+            ...await getHttpRequestConfig('DELETE'),
             url: '/customer/address',
             data: { addressId: address || '' },
         };

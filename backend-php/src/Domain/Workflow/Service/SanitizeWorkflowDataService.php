@@ -30,6 +30,8 @@ final class SanitizeWorkflowDataService
         return [
             'workflowId' => Utilities::sanitizeString($data['workflowId'] ?? ''),
             'workflowName' => Utilities::sanitizeAndEncodeString($data['workflowName'] ?? ''),
+            'deliveryRequired' => intval(Utilities::sanitizeString($data['delivery'] ?? '')),
+            'labourRequired' => intval(Utilities::sanitizeString($data['labour'] ?? '')),
             'tasks' => $tasks,
             'search' => Utilities::sanitizeAndEncodeString($data['search'] ?? ''),
             'page' => intval(Utilities::sanitizeString($data['page'] ?? 0)),

@@ -1,6 +1,5 @@
 import React, { JSX } from 'react';
 import { v4 as uniqueSlideId } from 'uuid';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { AutoplayOptions } from 'swiper/types/modules/autoplay';
 import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';

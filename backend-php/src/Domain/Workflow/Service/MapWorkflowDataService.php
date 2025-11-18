@@ -12,6 +12,8 @@ final class MapWorkflowDataService
 
         $workflowData->workflow_id = $data['workflowId'];
         $workflowData->workflow_name = $data['workflowName'];
+        $workflowData->delivery_required = $data['deliveryRequired'];
+        $workflowData->labour_required = $data['labourRequired'];
         $workflowData->search = $data['search'];
 
         foreach ($data['tasks'] as $task) {

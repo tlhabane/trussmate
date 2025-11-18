@@ -17,7 +17,9 @@ final class UpdateWorkflowRepository
     public function updateWorkflow(WorkflowData $data): bool
     {
         $query = "UPDATE workflow SET 
-                      workflow_name = :workflow_name
+                      workflow_name = :workflow_name,
+                      delivery_required = :delivery_required,
+                      labour_required = :labour_required
                   WHERE 
                       workflow_id = :workflow_id";
 
@@ -25,6 +27,8 @@ final class UpdateWorkflowRepository
         $query_data = [
             'workflow_id' => $data->workflow_id,
             'workflow_name' => $data->workflow_name,
+            'delivery_required' => $data->delivery_required,
+            'labour_required' => $data->labour_required,
         ];
         return $query_stmt->execute($query_data);
     }

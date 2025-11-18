@@ -8,8 +8,10 @@ export interface WorkflowTask {
 }
 
 export interface Workflow {
-    workflowId: string
+    workflowId: string;
     workflowName: string;
+    labour: number;
+    delivery: number;
 }
 
 export interface WorkflowTaskList extends WorkflowTask {

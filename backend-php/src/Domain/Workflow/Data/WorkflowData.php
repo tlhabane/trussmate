@@ -9,6 +9,8 @@ final class WorkflowData
     public string $account_no;
     public string $workflow_id;
     public string $workflow_name;
+    public int $delivery_required;
+    public int $labour_required;
 
     public array $tasks;
     public string $workflow_task_id;

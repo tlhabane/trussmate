@@ -24,6 +24,8 @@ final class DeleteWorkflowRepository
                       w.workflow_id = :workflow_id";
 
         $query_stmt = $this->connection->prepare($query);
-        return $query_stmt->execute(['workflow_id' => $workflowId]);
+        return $query_stmt->execute([
+            'workflow_id' => $workflowId
+        ]);
     }
 }

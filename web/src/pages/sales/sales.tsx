@@ -87,11 +87,10 @@ export default function Sales(): JSX.Element {
     const [pagination, setPagination] = useState<Pagination | null>(null);
     const { data, isLoading, isFetching, refetch } = useFetchData(fetchConfig);
     
-    const { authorisedUser } = useLayoutContext();
     const updateData = useCallback((data?: any) => {
         if (data) {
             const updatedPagination = data?.pagination as Pagination;
-            const updatedSaleList = formatSales((data?.records || []) as SaleList[], authorisedUser.userRole);
+            const updatedSaleList = formatSales((data?.records || []) as SaleList[]);
             
             const sortedSaleDates = sortDates(updatedSaleList.map(({ saleDate }) => saleDate));
             const formattedSaleDates = sortedSaleDates
@@ -112,7 +111,7 @@ export default function Sales(): JSX.Element {
             setPagination(updatedPagination);
             setLoadSaleList(false);
         }
-    }, [authorisedUser]);
+    }, []);
     
     useEffect(() => {
         updateData(data);

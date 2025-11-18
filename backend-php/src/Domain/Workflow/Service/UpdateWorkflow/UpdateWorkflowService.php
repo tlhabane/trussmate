@@ -2,6 +2,7 @@
 
 namespace App\Domain\Workflow\Service\UpdateWorkflow;
 
+use App\Domain\User\Service\ValidateSuperAdminPrivilegeService;
 use App\Domain\Workflow\Repository\GetWorkflowTaskRepository;
 use App\Domain\Workflow\Repository\DeleteAllWorkflowTaskRepository;
 use App\Domain\Workflow\Repository\UpdateWorkflowRepository;
@@ -40,6 +41,8 @@ final class UpdateWorkflowService
      */
     public function updateWorkflow(array $data): array
     {
+        ValidateSuperAdminPrivilegeService::validate($data['sessionUserRole']);
+
         $sanitizedData = SanitizeWorkflowDataService::sanitizeData($data);
         $sanitizedData['accountNo'] = $data['accountNo'];
         $validatedData = $this->validateUpdateWorkflowDataService->validateData($sanitizedData);

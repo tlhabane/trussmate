@@ -62,6 +62,8 @@ final class GetWorkflowService
             $records[] = [
                 'workflowId' => $workflow['workflow_id'],
                 'workflowName' => Utilities::decodeUTF8($workflow['workflow_name']),
+                'delivery' => $workflow['delivery_required'],
+                'labour' => $workflow['labour_required'],
                 'tasks' => $tasks,
             ];
         }

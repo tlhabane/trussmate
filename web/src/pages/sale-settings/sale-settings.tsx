@@ -13,7 +13,7 @@ import {
     SearchAndFilter,
 } from '../../components';
 import { ModalPrompt } from '../../containers';
-import { getHttpRequestConfig, useFetchData, useAxios } from '../../utils';
+import { useHttpRequestConfig, useFetchData, useAxios } from '../../utils';
 import { useSearchHandlers, usePromiseToast, usePreviousLocation } from '../../hooks';
 import { WorkflowList } from '../../models';
 import type {
@@ -140,17 +140,28 @@ export default function SaleSettings(): JSX.Element {
     
     const axios = useAxios();
     const toast = usePromiseToast();
+    const getHttpRequestConfig = useHttpRequestConfig();
+    
     const handleProceedDeletingWorkflow: ButtonClickFn<void> = async (event) => {
         event.preventDefault();
-        const { workflow } = event.currentTarget.dataset;
-        const httpRequestConfig = {
-            ...getHttpRequestConfig('DELETE'),
-            url: 'workflow',
-            data: { workflowId: workflow || '' },
-        };
+        const button = event.currentTarget;
         
-        await toast(axios(httpRequestConfig, undefined, event.currentTarget));
-        updateRecords();
+        try {
+            button.classList.add('loading');
+            const { workflow } = event.currentTarget.dataset;
+            const httpRequestConfig = {
+                ...await getHttpRequestConfig('DELETE'),
+                url: '/workflow',
+                data: { workflowId: workflow || '' },
+            };
+            
+            await toast(axios(httpRequestConfig));
+            button.classList.remove('loading');
+            handleDismissPromptModal();
+            updateRecords();
+        } catch (e) {
+            button.classList.remove('loading');
+        }
     };
     
     const handleDeleteWorkflow: ButtonClickFn<void> = (event) => {
