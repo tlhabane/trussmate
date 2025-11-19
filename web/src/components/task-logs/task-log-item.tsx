@@ -5,10 +5,17 @@ import { TaskLog } from '../../models';
 
 const formatDate = (date: string, time = false) => {
     const taskDate = new Date(date);
-    if (time) {
-        return `${format(taskDate, 'yyyy/MM/dd')} @ ${format(taskDate, 'H:I')}`;
+    try {
+        if (time) {
+            return `${format(taskDate, 'yyyy/MM/dd')} @ ${format(taskDate, 'H:I')}`;
+        }
+        return format(taskDate, 'yyyy/MM/dd');
+    } catch (e) {
+        const [datePart, timePart] = date.split('T');
+        const formattedDate = datePart.split('-').join('/');
+        const formattedTime = timePart.split(':').slice(0, 1).join(':');
+        return time ? `${formattedDate} @ ${formattedTime}` : `${formattedDate}`;
     }
-    return format(taskDate, 'yyyy/MM/dd');
 };
 
 // const iconSize = { width: 24, height: 24 };

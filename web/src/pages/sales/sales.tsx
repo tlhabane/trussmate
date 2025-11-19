@@ -208,7 +208,7 @@ export default function Sales(): JSX.Element {
             toggleButtonLoadingState(button);
             const { sale } = event.currentTarget.dataset;
             const httpRequestConfig = {
-                ...getHttpRequestConfig('DELETE'),
+                ...await getHttpRequestConfig('DELETE'),
                 url: '/sale',
                 data: { saleId: sale || '' },
             };

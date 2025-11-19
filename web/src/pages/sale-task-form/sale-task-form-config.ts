@@ -8,16 +8,6 @@ import {
     taskPaymentOptions,
 } from '../../static-data';
 
-const taskStatusOptions = statusOptions.filter((option) => (
-    option.value.toString().toLowerCase().trim() !== 'completed'
-));/*statusOptions.map((option) => {
-    const completeOption = option.value.toString().toLowerCase().trim() === 'completed';
-    if (completeOption) {
-        return { ...option, enabled: false };
-    }
-    return { ...option, enabled: true };
-})*/
-
 export const saleTaskFormConfig: FormState<SaleTaskForm> = {
     saleId: {
         error: '',
@@ -36,7 +26,7 @@ export const saleTaskFormConfig: FormState<SaleTaskForm> = {
         value: TaskStatus.PENDING,
         label: 'Task Status',
         type: 'select',
-        options: taskStatusOptions,
+        options: statusOptions,
         required: true,
     },
     taskCompletionDate: {

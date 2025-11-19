@@ -104,7 +104,7 @@ export const SaleListItem: React.FC<Props> = (props): JSX.Element => {
                             data-sale={sale.saleId}
                             className='btn-link success-btn tooltip-top no-text'
                             data-tooltip='Approve'
-                            disabled={saleStatus !== SaleStatus.PENDING}
+                            disabled={saleStatus === SaleStatus.PENDING}
                         >
                             <i className='custom-icon icon icon-only check' />
                         </Button>
