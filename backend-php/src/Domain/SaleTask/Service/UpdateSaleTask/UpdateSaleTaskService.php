@@ -52,18 +52,23 @@ final class UpdateSaleTaskService
             $updated_completion_date = date_create_from_format('Y-m-d', $saleTaskData->task_completion_date);
             if ($current_completion_date && $updated_completion_date) {
                 $date_diff = date_diff($current_completion_date, $updated_completion_date);
-                if ($date_diff->d !== 0) {
+                $difference = intval($date_diff->format('%r%a'));
+
+                if ($difference !== 0) {
                     $all_tasks = $this->getSaleTaskBySaleIdRepository->getTaskBySaleId($task['sale_id']);
                     //$filteredArray = array_filter((array)$all_tasks, fn($item) => intval($item['task_no']) >= intval($task['task_no']));
-
+                    // $affected_tasks = [];
                     foreach ($all_tasks as $item) {
                         if (intval($item['task_no']) < intval($task['task_no'])) {
                             continue;
                         }
-                        $task_completion_date = date_create_from_format('Y-m-d', $item['task_completion_date']);;
-                        $task_completion_date->modify("+{$date_diff->d} days");
+                        // $affected_tasks[] = $item['task_name'];
+
+                        $task_completion_date = date_create_from_format('Y-m-d', $item['task_completion_date']);
+                        $task_completion_date->modify("{$difference} days");
+
                         $updated_task_completion_date = $task_completion_date->format('Y-m-d');
-                        $updated_task_days = intval($item['task_days']) + $date_diff->d;
+                        $updated_task_days = intval($item['task_days']) + $difference;
 
                         $updated_sale_task_data = $saleTaskData;
                         $updated_sale_task_data->task_id = $task['task_id'];
@@ -86,6 +91,9 @@ final class UpdateSaleTaskService
                         }
                     }
 
+                    /*return [
+                        'affectedTasks' => $affected_tasks
+                    ];*/
                     // Add estimate (job) info
                     $this->addSaleTaskJobService->addJob($data, $saleTaskData);
 

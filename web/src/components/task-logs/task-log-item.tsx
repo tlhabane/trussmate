@@ -4,16 +4,16 @@ import { capitalizeFirstLetter, chunkArray } from '../../utils';
 import { TaskLog } from '../../models';
 
 const formatDate = (date: string, time = false) => {
-    const taskDate = new Date(date);
     try {
-        if (time) {
-            return `${format(taskDate, 'yyyy/MM/dd')} @ ${format(taskDate, 'H:I')}`;
-        }
-        return format(taskDate, 'yyyy/MM/dd');
+        const taskDate = new Date(date);
+        const formattedDate = format(taskDate, 'yyyy/MM/dd');
+        const formattedTime = format(taskDate, 'HH:mm');
+        
+        return time ? `${formattedDate} @ ${formattedTime}` : `${formattedDate}`;
     } catch (e) {
         const [datePart, timePart] = date.split('T');
         const formattedDate = datePart.split('-').join('/');
-        const formattedTime = timePart.split(':').slice(0, 1).join(':');
+        const formattedTime = timePart.split(':').slice(0, 2).join(':');
         return time ? `${formattedDate} @ ${formattedTime}` : `${formattedDate}`;
     }
 };

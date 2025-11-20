@@ -2,8 +2,12 @@
 
 namespace App\Domain\Messaging\Service;
 
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use PHPMailer\PHPMailer\Exception as MailException;
+use PHPMailer\PHPMailer\PHPMailer;
 use App\Exception\RuntimeException;
+use App\Factory\ContainerFactory;
 use App\Util\Logger;
 use Exception;
 
@@ -16,6 +20,24 @@ final class SendEmailMessageService
     {
         $mail = new EmailTransport(true);
         try {
+            $container = (new ContainerFactory())->createInstance();
+            $settings = $container->get('settings')['email'];
+            $mail->isSMTP();
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                )
+            );
+            $mail->Host = $settings['host'];
+            $mail->SMTPAuth = true;
+            $mail->Username = $settings['username'];
+            $mail->Password = $settings['password'];
+            // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port = $settings['port'];
+
+
             $mail->Subject = $data['subject'];
             $emails = preg_split("/[\s,;]+/", $data['recipientEmail']);
             if ($emails && count($emails) > 0) {
@@ -34,6 +56,7 @@ final class SendEmailMessageService
             }
 
             $mail->setFrom($data['senderEmail'], $data['senderName']);
+            $mail->clearReplyTos();
             $mail->addReplyTo($data['senderEmail'], $data['senderName']);
 
             if (isset($data['attachments'])) {
@@ -50,6 +73,7 @@ final class SendEmailMessageService
                 $mail->clearAddresses();
                 $mail->clearAllRecipients();
                 $mail->clearAttachments();
+                $mail->copyToFolder();
 
                 Logger::addToLog(
                     'mail_SUCCESS.log',
@@ -58,7 +82,7 @@ final class SendEmailMessageService
                 return ['success' => "Email successfully sent to {$data['recipientName']}."];
             }
 
-        } catch (MailException|Exception $exception) {
+        } catch (MailException|Exception|NotFoundExceptionInterface|ContainerExceptionInterface $exception) {
             $mail->clearAddresses();
             $mail->clearAllRecipients();
             $mail->clearAttachments();

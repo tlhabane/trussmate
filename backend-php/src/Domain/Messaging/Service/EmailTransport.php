@@ -2,12 +2,18 @@
 
 namespace App\Domain\Messaging\Service;
 
-use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\Exception as MailException;
 use PHPMailer\PHPMailer\PHPMailer;
 use App\Util\Logger;
+use Exception;
 
 class EmailTransport extends PHPMailer
 {
+    public function __construct($exceptions = null)
+    {
+        parent::__construct($exceptions);
+    }
+
     /**
      * Save email to a folder (via IMAP)
      *
@@ -17,25 +23,20 @@ class EmailTransport extends PHPMailer
      * if nothing was specified it will be saved in the inbox.
      *
      * @author David Tkachuk <http://davidrockin.com/>
-     * @param null $folderPath
+     * @param string|null $folderPath
      */
-    public function copyToFolder($folderPath = null)
+    public function copyToFolder(?string $folderPath = 'Sent')
     {
         try {
             $message = $this->getSentMIMEMessage();
             $path = "INBOX" . (isset($folderPath) ? "." . $folderPath : ""); // Location to save the email
-            $imapStream = imap_open(
-                "{" . $this->Host . "/tls/novalidate-cert/norsh/service=imap/user=" . $this->Username . "}" .
-                $path,
-                $this->Username,
-                $this->Password
-            );
+            $imapStream = imap_open("{" . $this->Host . "/tls/novalidate-cert/norsh/service=imap/user=" . $this->Username . "}" . $path, $this->Username, $this->Password);
             //$imapStream = imap_open("{" . $this->Host . "}" . $path , $this->Username, $this->Password);
             imap_append($imapStream, "{" . $this->Host . "}" . $path, $message . "\r\n", "\\Seen");
             imap_close($imapStream);
         } catch (Exception $exception) {
             Logger::addToLog(
-                'auto_backup_ERROR.log',
+                'mail_ERROR.log',
                 sprintf('Error %s: %s', $exception->getCode(), $exception->getMessage()),
                 true
             );

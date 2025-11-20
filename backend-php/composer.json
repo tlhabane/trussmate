@@ -24,6 +24,7 @@
         "sort-packages": true
     },
     "scripts": {
+        "build": "composer install --no-dev --optimize-autoloader",
         "cs:check": "php-cs-fixer fix --dry-run --format=txt --verbose --diff --config=.cs.php --ansi",
         "cs:fix": "php-cs-fixer fix --config=.cs.php --ansi",
         "sniffer:check": "phpcs --standard=phpcs.xml",

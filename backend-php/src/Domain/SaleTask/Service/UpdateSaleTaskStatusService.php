@@ -98,6 +98,7 @@ final class UpdateSaleTaskStatusService
             $sanitizedData['taskPayment'] = $task['task_payment'];
             $sanitizedData['taskPaymentType'] = $task['task_payment_type'];
             $sanitizedData['comments'] = 'Task status update';
+            $sanitizedData['taskCompletionDate'] = $task['task_completion_date'];
 
             $taskData = SetSaleTaskDataService::set($sanitizedData);
             $taskData->user_id = $data['sessionUsername'];

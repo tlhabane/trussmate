@@ -19,7 +19,7 @@ HttpRequestVerbHandler::patch(
 
 HttpRequestVerbHandler::delete(
     '/sale',
-    App\Action\Sale\UpdateSaleAction::class,
+    App\Action\Sale\DeleteSaleAction::class,
     App\Middleware\SessionValidationMiddleware::class
 );
 

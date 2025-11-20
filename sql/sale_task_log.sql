@@ -20,3 +20,17 @@ CREATE TABLE `sale_task_log`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS `temp_sale_task_log`;
+/*CREATE TABLE `temp_sale_task_log`
+(
+    `user_id`      varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+    `sale_task_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+    `record_data`  JSON                                                          NOT NULL,
+    `comments`     TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci         NOT NULL,
+    `created`      timestamp                                                     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `modified`     timestamp                                                     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`sale_task_id`, `created`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_unicode_ci;*/
