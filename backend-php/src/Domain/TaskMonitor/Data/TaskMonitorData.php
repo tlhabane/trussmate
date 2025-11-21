@@ -12,5 +12,9 @@ final class TaskMonitorData
     public string $escalation_task_id;
     public string $task_id;
     public array $tasks;
+    public string $message_id;
+    public string $sale_task_id;
+    public TaskNotificationType $task_notification_type;
+    public string $recipient_address;
     public string $search;
 }

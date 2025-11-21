@@ -35,7 +35,7 @@ final class ValidateDeleteSaleDataService
         $sales = $this->getSaleService->getSale($service_data);
 
         if (empty($data['saleId']) || count($sales['records']) !== 1) {
-            throw new ValidationException('Invalid or missing sale details');
+            throw new ValidationException('Invalid or missing sale details', 422, $sales['records']);
         }
 
         foreach ($sales['records'] as $sale) {

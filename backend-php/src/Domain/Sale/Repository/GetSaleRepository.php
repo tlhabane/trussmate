@@ -40,6 +40,7 @@ final class GetSaleRepository
 
         $query .= empty($data->customer_id) ? "" : " AND c.customer_id = :customer_id";
         $query .= empty($data->contact_id) ? "" : " AND cp.contact_id = :contact_id";
+        $query .= empty($data->sale_id) ? "" : " AND s.sale_id = :sale_id";
         $query .= empty($data->sale_status->value) ? "" : " AND s.sale_status = :sale_status";
         $query .= empty($data->billing_address_id) ? "" : " AND s.billing_address_id = :billing_address_id";
         $query .= empty($data->delivery_address_id) ? "" : " AND s.delivery_address_id = :delivery_address_id";
@@ -87,6 +88,9 @@ final class GetSaleRepository
         }
         if (!empty($data->contact_id)) {
             $query_stmt->bindParam(':contact_id', $data->contact_id);
+        }
+        if (!empty($data->sale_id)) {
+            $query_stmt->bindParam(':sale_id', $data->sale_id);
         }
         if (!empty($data->sale_status->value)) {
             $sale_status = $data->sale_status->value;

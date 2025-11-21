@@ -3,7 +3,7 @@
 .history
 .next
 .vscode
-*.sql
+sql/*
 build
 dist
 node_modules

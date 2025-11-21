@@ -8,6 +8,11 @@ HttpRequestVerbHandler::post(
     App\Middleware\SessionValidationMiddleware::class
 );
 
+HttpRequestVerbHandler::post(
+    '/task/monitor/notification',
+    App\Action\TaskMonitor\SendTaskNotificationAction::class
+);
+
 HttpRequestVerbHandler::patch(
     '/task/monitor',
     App\Action\TaskMonitor\UpdateTaskMonitorAction::class,
